@@ -8,13 +8,10 @@ import java.lang.Math;
 
 public class Polynomial {
 
-    double[] coefficients;
+    public double[] coefficients;
 
     public Polynomial() {
-        coefficients = new double[100];
-        for (int i = 0; i < coefficients.length; i++) {
-            coefficients[i] = 0;
-        }
+        coefficients = new double[] { 0 };
     }
 
     public Polynomial(double[] coefficients) {
@@ -24,16 +21,18 @@ public class Polynomial {
     public Polynomial add(Polynomial p) {
         Polynomial result = new Polynomial();
 
-        int iters = Math.max(this.coefficients.length, p.coefficients.length);
-        int min = Math.min(this.coefficients.length, p.coefficients.length);
+        if (this.coefficients.length > p.coefficients.length) {
+            result.coefficients = this.coefficients;
+            for (int i = 0; i < p.coefficients.length; i++) {
+                result.coefficients[i] += p.coefficients[i];
+            }
 
-        for (int i = 0; i < iters; i++) {
-            if (i < min) {
-                result.coefficients[i] = this.coefficients[i] + p.coefficients[i];
-            } else if (this.coefficients.length > p.coefficients.length) {
-                result.coefficients[i] = this.coefficients[i];
-            } else {
-                result.coefficients[i] = p.coefficients[i];
+        }
+
+        else {
+            result.coefficients = p.coefficients;
+            for (int i = 0; i < this.coefficients.length; i++) {
+                result.coefficients[i] += this.coefficients[i];
             }
         }
 
