@@ -20,25 +20,11 @@ public class Polynomial {
     }
 
     public Polynomial(File poly) throws IOException{
-        // the file will only have one line with no whitepsaces which contains a polynomial in the form 5-3x2+7x8 which corresponds to 5-3x^2+7x^8. The 
-        // coefficients array will be [5, -3, 7] and the exponents array will be [0, 2, 8]
 
-        // read the file
-        // split the string into an array of strings
-        // loop through the array of strings
-        // if the string contains an x, then split the string into two strings, one with the coefficient and one with the exponent
-        // if the string does not contain an x, then the coefficient is the string and the exponent is 0
-        // convert the strings to doubles and ints
-        // add the doubles and ints to the coefficients and exponents arrays
-        // return the polynomial
-
-        //read the file
         BufferedReader br = new BufferedReader(new FileReader(poly));
     
         String line = br.readLine();
         br.close();
-
-        //split the string at each + or -
         String[] split;
         split = line.split("(?=[+-])");
 
@@ -46,13 +32,9 @@ public class Polynomial {
         int[] newExponents = new int[split.length];
 
 
-
-        //loop through the array of strings
         for (int i = 0; i < split.length; i++) {
-            //if the string contains an x, then split the string into two strings, one with the coefficient and one with the exponent
             if(split[i].contains("x")){
                 String[] split2 = split[i].split("x");
-                //if the string does not contain an x, then the coefficient is the string and the exponent is 0
                 if(split2[0].equals("")){
                     newCoefficients[i] = 1;
                 } else if(split2[0].equals("-")){
@@ -62,13 +44,11 @@ public class Polynomial {
                 }
                 newExponents[i] = Integer.parseInt(split2[1]);
             } else {
-                //if the string does not contain an x, then the coefficient is the string and the exponent is 0
                 newCoefficients[i] = Double.parseDouble(split[i]);
                 newExponents[i] = 0;
             }
         }
 
-        //add the doubles and ints to the coefficients and exponents arrays
         this.coefficients = newCoefficients;
         this.exponents = newExponents;
 
